@@ -1,0 +1,297 @@
+/*
+ * Misskey 小画面キット
+ * 保存先はブラウザの localStorage.customCss（アカウントには載らない）。
+ * スマホで Misskey の設定→環境設定→カスタムCSS にコピペする。
+ * PC に貼ってもマウス付きデスクトップでは効かない。
+ * 判定: max-width 500px（公式のモバイル境界）かつ pointer: coarse（タッチ）。
+ * 本番の Vue CSS Modules クラス名は x + 4文字ハッシュなので、
+ * 公式のグローバルクラス（._spacer / ._button / ._modalBg / ._popup / ._noSelect）と構造で当てている。
+ * 壊れたら: ?safemode=true で起動し、カスタムCSSを消す。
+ */
+
+/* 角丸を小さくする */
+@media (max-width: 500px) and (pointer: coarse) {
+  :root {
+    --MI-radius: 8px;
+  }
+
+  ._popup {
+    border-radius: 8px !important;
+  }
+
+  ._modalBg + div > * {
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
+  }
+
+  ._modalBg + div:not(:has(textarea)) > * {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+}
+
+/* ヘッダーのアイコンとタブ余白 */
+@media (max-width: 500px) and (pointer: coarse) {
+  /* タブ行。公式は .upper { --height: 50px }（thin 時は 40px）。
+     本番のクラス名は x + 4文字ハッシュなので、アカウントボタンの構造で当てる。 */
+  ._pageScrollable div:has(> ._button > span._noSelect),
+  ._pageScrollable div:has(> ._button > span._noSelect) + div {
+    --height: 32px !important;
+  }
+
+  /* 自分アイコン。公式 $size: 32px。リンクなし MkAvatar は span._noSelect。 */
+  ._pageScrollable ._button > span._noSelect {
+    width: 21px !important;
+    height: 21px !important;
+    min-width: 21px !important;
+    min-height: 21px !important;
+  }
+}
+
+/* ノート列とノートを詰める */
+@media (max-width: 500px) and (pointer: coarse) {
+  ._spacer {
+    --MI_SPACER-max: 12px;
+    --MI_SPACER-min: 6px;
+  }
+
+  ._spacer article {
+    padding: 11px 12px !important;
+  }
+
+  /* 話者。枠だけサイズする。img は MkImgWithBlurhash が absolute で埋める。
+     sticky 解除は static にしない。static だと絶対配置の基準が消え、
+     リロード時に巨大アイコンが一瞬出てから消える。 */
+  ._spacer article > a._noSelect,
+  ._spacer article > div > a._noSelect:has(+ div) {
+    width: 23px !important;
+    height: 23px !important;
+    min-width: 23px !important;
+    min-height: 23px !important;
+    margin-top: 4px !important;
+    margin-right: 5px !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    aspect-ratio: 1 !important;
+    flex-shrink: 0 !important;
+    overflow: hidden !important;
+    border-radius: 50% !important;
+    position: relative !important;
+    top: auto !important;
+  }
+
+  /* 本文。下は 4px のまま、上だけ少し。 */
+  ._spacer article > div > [style*="container-type"],
+  ._spacer article > div > div > [style*="container-type"] {
+    padding-top: 8px !important;
+    padding-bottom: 4px !important;
+  }
+
+  ._spacer article > div:has(> :nth-child(3)) > [style*="container-type"],
+  ._spacer article > div > div:has(> :nth-child(3)) > [style*="container-type"] {
+    margin-left: calc(-23px - 5px) !important;
+  }
+
+  ._spacer article > div > [style*="container-type"] ~ *,
+  ._spacer article > div > div > [style*="container-type"] ~ * {
+    box-sizing: border-box !important;
+    width: calc(100% + (23px + 5px) * 0.85) !important;
+    max-width: none !important;
+    margin-left: calc((-23px - 5px) * 0.85) !important;
+    margin-right: 0 !important;
+  }
+
+  ._spacer article :is(footer, div):has(> button._button .ti-plus):has(> button._button .ti-repeat):not(:has(.ti-pencil)):not(:has(.ti-menu-2)):not(:has(> :not(button))) {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    width: calc(100% + (23px + 5px) * 0.85) !important;
+    max-width: none !important;
+    margin-left: calc((-23px - 5px) * 0.85) !important;
+    margin-right: 0 !important;
+  }
+
+  ._spacer article :is(footer, div):has(> button._button .ti-plus):has(> button._button .ti-repeat):not(:has(.ti-pencil)):not(:has(.ti-menu-2)):not(:has(> :not(button))) > button._button {
+    margin-right: 0 !important;
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    display: inline-flex !important;
+    justify-content: center !important;
+  }
+
+  ._spacer article > header > :is(a, span)._noSelect {
+    width: 23px !important;
+    height: 23px !important;
+    min-width: 23px !important;
+    min-height: 23px !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    aspect-ratio: 1 !important;
+    flex-shrink: 0 !important;
+    overflow: hidden !important;
+    border-radius: 50% !important;
+    position: relative !important;
+    top: auto !important;
+  }
+
+  ._spacer div:has(> .ti-repeat) > a._noSelect {
+    width: 15px !important;
+    height: 15px !important;
+    min-width: 15px !important;
+    min-height: 15px !important;
+    margin-top: 0 !important;
+    padding: 0 !important;
+    aspect-ratio: 1 !important;
+    flex-shrink: 0 !important;
+    overflow: hidden !important;
+    border-radius: 50% !important;
+    position: relative !important;
+  }
+
+  /* リプライ元: article の直前のブロック。本文・添付には触れない。 */
+  ._spacer *:has(> article) > div:not(:has([style*="container-type"])):not(:has(> .ti-repeat)) > div > :is(a, span)._noSelect {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    margin-right: 6px !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    aspect-ratio: 1 !important;
+    flex-shrink: 0 !important;
+    overflow: hidden !important;
+    border-radius: 50% !important;
+    position: relative !important;
+  }
+
+  /* 引用 MkNoteSimple: avatar + main の直下だけ。添付の a._noSelect は除外。
+     useSticky の top: calc(16px + var(--MI-stickyTop)) が relative のまま残ると下にずれる。 */
+  ._spacer [style*="container-type"] > div > a._noSelect:first-child,
+  ._spacer [style*="container-type"] div:has(> a._noSelect:first-child + div) > a._noSelect:first-child {
+    width: 23px !important;
+    height: 23px !important;
+    min-width: 23px !important;
+    min-height: 23px !important;
+    margin-top: 0 !important;
+    margin-right: 8px !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    aspect-ratio: 1 !important;
+    flex-shrink: 0 !important;
+    overflow: hidden !important;
+    border-radius: 50% !important;
+    position: relative !important;
+    top: auto !important;
+  }
+}
+
+/* 下部メニューを低く、投稿ボタンを角丸四角に */
+@media (max-width: 500px) and (pointer: coarse) {
+  :root {
+    --MI-minBottomSpacingMobile: calc(42px + env(safe-area-inset-bottom, 0px));
+    --MI-minBottomSpacing: var(--MI-minBottomSpacingMobile);
+  }
+
+  div:has(> button._button .ti-menu-2):has(> button._button .ti-pencil) > button._button {
+    padding-top: 9px !important;
+    padding-bottom: 9px !important;
+  }
+
+  div:has(> button._button .ti-menu-2):has(> button._button .ti-pencil) > button._button > div {
+    max-width: 24px !important;
+  }
+
+  div:has(> button._button .ti-menu-2):has(> button._button .ti-pencil) > button._button:has(.ti-pencil) > div {
+    aspect-ratio: auto !important;
+    width: 40px !important;
+    max-width: 40px !important;
+    height: 22px !important;
+    border-radius: 8px !important;
+  }
+
+  *:has(> * > .notification._acrylic) {
+    bottom: var(--MI-minBottomSpacing) !important;
+    top: auto !important;
+  }
+}
+
+/* 投稿モーダルを詰める */
+@media (max-width: 500px) and (pointer: coarse) {
+  ._modalBg + div:has(header):has(textarea) {
+    padding: calc(16px / 3) !important;
+  }
+
+  ._popup header button._button:has(> img) {
+    display: none !important;
+  }
+
+  ._popup div:has(> span._noSelect) {
+    padding: 11px 9px !important;
+  }
+
+  ._popup div:has(> span._noSelect) > span._noSelect {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    margin-right: 5px !important;
+  }
+}
+
+/* 切断警告を消す */
+@media (max-width: 500px) and (pointer: coarse) {
+  ._panel._shadow:has(.ti-alert-triangle):has(._buttons) {
+    display: none !important;
+  }
+}
+
+/* プロフィールのノート絞り込みタブを低く */
+@media (max-width: 500px) and (pointer: coarse) {
+  /* テキストだけの 4 連ピル。ヘッダーのアイコン付きタブは除外。 */
+  ._pageScrollable div:has(> button._button:nth-of-type(4):last-of-type):not(:has(.ti)) {
+    font-size: 70% !important;
+  }
+
+  ._pageScrollable div:has(> button._button:nth-of-type(4):last-of-type):not(:has(.ti)) > button._button {
+    padding: 7px 5px !important;
+    margin-left: 5px !important;
+  }
+
+  ._pageScrollable div:has(> button._button:nth-of-type(4):last-of-type):not(:has(.ti)) > button._button:first-of-type {
+    margin-left: 0 !important;
+  }
+}
+
+/* ハンバーガーメニューを狭く */
+@media (max-width: 500px) and (pointer: coarse) {
+  div:has(.ti-bolt):has(.ti-home):not(:has(.ti-menu-2)) {
+    width: 200px !important;
+    max-width: 200px !important;
+    --nav-width: 200px !important;
+  }
+}
+
+/* リアクションドロワーを高く */
+@media (max-width: 500px) and (pointer: coarse) {
+  ._modalBg + div:has(> * > input):not(:has(textarea)):not(:has(.ti-pencil)):not(:has(.ti-home)):not(:has(.ti-bolt)) {
+    height: calc(100dvh * 5 / 6) !important;
+    max-height: calc(100dvh * 5 / 6) !important;
+    top: auto !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  ._modalBg + div:has(> * > input):not(:has(textarea)):not(:has(.ti-pencil)):not(:has(.ti-home)):not(:has(.ti-bolt)) > * {
+    height: 100% !important;
+    max-height: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+}
