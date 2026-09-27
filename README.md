@@ -40,4 +40,4 @@ Misskey のバージョンや画面構造が変わると、セレクタが外れ
 
 ## ライセンス
 
-Public Domain
+[MIT License](LICENSE)
