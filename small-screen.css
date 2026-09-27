@@ -1,12 +1,8 @@
 /*
  * Misskey 小画面キット
- * 保存先はブラウザの localStorage.customCss（アカウントには載らない）。
- * スマホで Misskey の設定→環境設定→カスタムCSS にコピペする。
- * PC に貼ってもマウス付きデスクトップでは効かない。
  * 判定: max-width 500px（公式のモバイル境界）かつ pointer: coarse（タッチ）。
  * 本番の Vue CSS Modules クラス名は x + 4文字ハッシュなので、
  * 公式のグローバルクラス（._spacer / ._button / ._modalBg / ._popup / ._noSelect）と構造で当てている。
- * 壊れたら: ?safemode=true で起動し、カスタムCSSを消す。
  */
 
 /* 角丸を小さくする */
