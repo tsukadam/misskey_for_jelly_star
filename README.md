@@ -1,12 +1,15 @@
 # Misskey 小画面キット
 
-小さいスマホ（Jelly Starを想定）用に調整した Misskey のカスタムCSSです。
+小さいスマホ（Jelly Starを想定）用に調整した Misskey のカスタムCSSです。（色の設定は含まれない）
+
+<img width="30%" height="30%" alt="tl" src="https://github.com/user-attachments/assets/7b7ca790-e4ab-4088-9217-4d65e8a6a4ea" />　<img width="30%" height="30%" alt="note" src="https://github.com/user-attachments/assets/58d0c0f2-7445-4741-b4c2-ccc80ce610b0" />　<img width="30%" height="30%" alt="reaction" src="https://github.com/user-attachments/assets/2b25da13-72ef-4dcf-b32e-97dbfdf456fd" />
 
 - アイコン類を小さくする
 - アイコン下の余白を無くす
-- フッターやドロワー類の余白を詰める
+- フッターやドロワー類の余白を調整
 - サーバー切断の警告を非表示に
 など。
+※TL閲覧に使う範囲しか触っておらず、他は手付かずです
 
 ## 使い方
 
